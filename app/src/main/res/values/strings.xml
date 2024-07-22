@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">android_clean_architecture_boilerplate</string>
+    <string name="enter_your_account">Enter your\nAccount</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="login">Login</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="not_yet_have_an_account">Not yet have an account?</string>
+    <string name="register_here">Register here</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_your_password_confirmation">Enter your password confirmation</string>
+    <string name="register">Register</string>
+    <string name="login_here">Login here</string>
+</resources>
