@@ -10,8 +10,5 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val authUseCase: AuthUseCase
 ): ViewModel() {
-
     fun loginUser(email: String, password: String) = authUseCase.loginUser(email, password).asLiveData()
-
-
 }

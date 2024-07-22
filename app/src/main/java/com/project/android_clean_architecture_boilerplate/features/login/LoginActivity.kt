@@ -45,8 +45,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun handleRegisterHereButton() {
         binding.tvToRegister.setOnClickListener {
-            val intentToLoginActivity = Intent(this@LoginActivity, RegisterActivity::class.java)
-            startActivity(intentToLoginActivity)
+            val intentToRegister = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intentToRegister)
         }
     }
 
