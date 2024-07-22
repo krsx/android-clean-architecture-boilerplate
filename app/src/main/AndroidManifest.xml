@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Android_clean_architecture_boilerplate"
         tools:targetApi="31">
         <activity
+            android:name=".features.dashboard.DashboardActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.register.RegisterActivity"
             android:exported="false" />
         <activity
@@ -28,4 +31,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
