@@ -85,7 +85,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun saveData(data: Auth?) {
         if (data != null) {
-            loginViewModel.saveToken(data.token).observe(this@LoginActivity) { result ->
+            loginViewModel.saveData(data.token, data.user).observe(this@LoginActivity) { result ->
                 if (result) {
                     showToast("Welcome To My Application")
 
@@ -97,8 +97,6 @@ class LoginActivity : AppCompatActivity() {
                     showToast("Something went wrong, please login again")
                 }
             }
-        } else {
-            showToast("Something went wrong, please login again")
         }
     }
 
