@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.project.android_clean_architecture_boilerplate.databinding.ActivityLoginBinding
@@ -129,6 +131,17 @@ class LoginActivity : AppCompatActivity() {
 
         binding.edLoginEmail.addTextChangedListener(emailTextWatcher)
         binding.edLoginPassword.addTextChangedListener(passwordTextWatcher)
+
+        binding.edLoginPassword.setOnKeyListener(View.OnKeyListener { view, keyCode, keyEvent ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
+                val inputMethodManager =
+                    getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+
+                return@OnKeyListener true
+            }
+            false
+        })
     }
 
     private fun validateEmailFormInputs() {
