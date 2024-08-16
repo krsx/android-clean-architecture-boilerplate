@@ -9,7 +9,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.project.android_clean_architecture_boilerplate.R
 import com.project.android_clean_architecture_boilerplate.databinding.FragmentSettingsBinding
+import com.project.android_clean_architecture_boilerplate.features.dashboard.settings.dialog.LogoutDialog
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
@@ -34,6 +36,14 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        
+        handleLogout()
+    }
+
+    private fun handleLogout() {
+        binding.btnLogout.setOnClickListener {
+            Timber.tag("TEST").e("Token: Halo")
+
+            LogoutDialog().show(parentFragmentManager, "Logout Dialog")
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.project.core.domain.repository.auth
 
 import com.project.core.data.source.Resource
+import com.project.core.domain.model.Auth
 import com.project.core.domain.model.User
 import kotlinx.coroutines.flow.Flow
 
@@ -15,7 +16,7 @@ interface IAuthRepository {
     fun loginUser(
         email: String,
         password: String
-    ): Flow<Resource<User>>
+    ): Flow<Resource<Auth>>
 
     fun saveToken(token: String): Flow<Boolean>
 

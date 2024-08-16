@@ -4,6 +4,7 @@ import com.project.core.data.source.Resource
 import com.project.core.data.source.local.LocalDataSource
 import com.project.core.data.source.remote.RemoteDataSource
 import com.project.core.data.source.remote.network.ApiResponse
+import com.project.core.domain.model.Auth
 import com.project.core.domain.model.User
 import com.project.core.domain.repository.auth.IAuthRepository
 import com.project.core.utils.data_mapper.AuthDataMapper
@@ -35,7 +36,7 @@ class AuthRepository @Inject constructor(private val remoteDataSource: RemoteDat
         }
     }
 
-    override fun loginUser(email: String, password: String): Flow<Resource<User>> {
+    override fun loginUser(email: String, password: String): Flow<Resource<Auth>> {
         return flow {
             emit(Resource.Loading())
 

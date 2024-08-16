@@ -11,4 +11,6 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(private val authUseCase: AuthUseCase): ViewModel() {
 
     fun deleteToken() = authUseCase.deleteToken().asLiveData()
+
+    fun getToken() = authUseCase.getToken().asLiveData()
 }

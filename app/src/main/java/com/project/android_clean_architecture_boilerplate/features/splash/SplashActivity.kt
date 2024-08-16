@@ -13,11 +13,15 @@ import com.project.android_clean_architecture_boilerplate.R
 import com.project.android_clean_architecture_boilerplate.databinding.ActivitySplashBinding
 import com.project.android_clean_architecture_boilerplate.features.dashboard.DashboardActivity
 import com.project.android_clean_architecture_boilerplate.features.login.LoginActivity
+import com.project.core.utils.NO_DATA
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
+    private val activityNameTag = "SplashActivity"
+
     private lateinit var binding: ActivitySplashBinding
     private val splashViewModel: SplashViewModel by viewModels()
 
@@ -34,7 +38,9 @@ class SplashActivity : AppCompatActivity() {
 
     private fun checkUserToken() {
         splashViewModel.getToken().observe(this){token ->
-            if (token.isNullOrEmpty()){
+            Timber.tag(activityNameTag).d("Token $token")
+
+            if (token.isNullOrEmpty() || token == NO_DATA){
                 Handler().postDelayed({
                     val intentToHome = Intent(this, LoginActivity::class.java)
                     intentToHome.flags =
@@ -50,10 +56,6 @@ class SplashActivity : AppCompatActivity() {
                 }, DELAY.toLong())
             }
         }
-    }
-
-    private fun setupActionBar() {
-        supportActionBar?.hide()
     }
 
     companion object {

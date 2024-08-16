@@ -76,9 +76,9 @@ class RegisterActivity : AppCompatActivity() {
                         showLoading(false)
                         Timber.tag(activityNameTag).d("Success")
 
-                        showToast("Welcome To My Application")
-                        val intentToDashboard = Intent(this@RegisterActivity, DashboardActivity::class.java)
-                        startActivity(intentToDashboard)
+                        showToast("User Registered")
+                        val intentToLogin = Intent(this@RegisterActivity, LoginActivity::class.java)
+                        startActivity(intentToLogin)
                         finish()
                     }
                 }

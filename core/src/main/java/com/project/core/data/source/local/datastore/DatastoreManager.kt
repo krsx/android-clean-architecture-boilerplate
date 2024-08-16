@@ -44,6 +44,7 @@ class DatastoreManager @Inject constructor(private val dataStore: DataStore<Pref
                dataStore.edit {preferences ->
                    preferences.remove(TOKEN_KEY_PREF)
                }
+
                 emit(true)
             }catch (e: Exception){
                 Timber.tag("DatastoreManager").e("deleteToken: ${e.message}")

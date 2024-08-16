@@ -2,6 +2,7 @@ package com.project.core.domain.usecase.auth
 
 import com.project.core.data.repository.auth.AuthRepository
 import com.project.core.data.source.Resource
+import com.project.core.domain.model.Auth
 import com.project.core.domain.model.User
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -11,7 +12,7 @@ class AuthInteractor @Inject constructor(private val authRepository: AuthReposit
         return authRepository.registerUser(email, password, name)
         }
 
-    override fun loginUser(email: String, password: String): Flow<Resource<User>> {
+    override fun loginUser(email: String, password: String): Flow<Resource<Auth>> {
         return authRepository.loginUser(email, password)
     }
 

@@ -6,16 +6,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.project.android_clean_architecture_boilerplate.R
 import com.project.android_clean_architecture_boilerplate.databinding.ActivityLoginBinding
 import com.project.android_clean_architecture_boilerplate.features.dashboard.DashboardActivity
 import com.project.android_clean_architecture_boilerplate.features.register.RegisterActivity
 import com.project.core.data.source.Resource
+import com.project.core.domain.model.Auth
 import com.project.core.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -56,52 +53,76 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.edLoginEmail.text.toString()
             val password = binding.edLoginPassword.text.toString()
 
-            loginViewModel.loginUser(email, password).observe(this){result ->
-                when(result){
+            loginViewModel.loginUser(email, password).observe(this) { result ->
+                when (result) {
                     is Resource.Error -> {
                         showLoading(false)
                         Timber.tag(activityNameTag).e("Error : ${result.message}")
                         showToast(result.message.toString())
                     }
-                    is Resource.Loading ->{
+
+                    is Resource.Loading -> {
                         showLoading(true)
                     }
-                    is Resource.Message ->{
+
+                    is Resource.Message -> {
                         showLoading(false)
                         Timber.tag(activityNameTag).e("Message : ${result.message}")
                     }
-                    is Resource.Success ->{
+
+                    is Resource.Success -> {
                         showLoading(false)
                         Timber.tag(activityNameTag).d("Success")
 
-                        showToast("Welcome To My Application")
-
-                        val intentToDashboard = Intent(this@LoginActivity, DashboardActivity::class.java)
-                        startActivity(intentToDashboard)
-                        finish()
+                        saveData(result.data)
                     }
                 }
             }
         }
     }
 
+    private fun saveData(data: Auth?) {
+        if (data != null) {
+            loginViewModel.saveToken(data.token).observe(this@LoginActivity) { result ->
+                if (result) {
+                    showToast("Welcome To My Application")
+
+                    val intentToDashboard =
+                        Intent(this@LoginActivity, DashboardActivity::class.java)
+                    startActivity(intentToDashboard)
+                    finish()
+                } else {
+                    showToast("Something went wrong, please login again")
+                }
+            }
+        } else {
+            showToast("Something went wrong, please login again")
+        }
+    }
+
     private fun handleFormInputs() {
         val emailTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
+                Unit
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 validateEmailFormInputs()
             }
-            override fun afterTextChanged(s: Editable?){
+
+            override fun afterTextChanged(s: Editable?) {
                 validateEmailFormInputs()
             }
         }
 
         val passwordTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
+                Unit
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 validatePasswordFormInputs()
             }
-            override fun afterTextChanged(s: Editable?){
+
+            override fun afterTextChanged(s: Editable?) {
                 validatePasswordFormInputs()
             }
         }
@@ -114,29 +135,28 @@ class LoginActivity : AppCompatActivity() {
         val email = binding.edLoginEmail.text.toString()
         val isEmailFormatCorrect = Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
-        if (!isEmailFormatCorrect){
+        if (!isEmailFormatCorrect) {
             binding.layoutEmail.apply {
                 isErrorEnabled = true
                 error = "Please check your email format"
             }
-        }else{
+        } else {
             binding.layoutEmail.isErrorEnabled = false
         }
 
         isButtonRegisterEnabled(email.isNotEmpty() && isEmailFormatCorrect)
     }
 
-    fun validatePasswordFormInputs(){
+    fun validatePasswordFormInputs() {
         val password = binding.edLoginPassword.text.toString()
         val isPasswordFormatCorrect = password.length >= 8
 
-        if (!isPasswordFormatCorrect){
+        if (!isPasswordFormatCorrect) {
             binding.layoutPassword.apply {
                 isErrorEnabled = true
                 error = "Password must be at least 8 characters"
             }
-        }
-        else{
+        } else {
             binding.layoutPassword.isErrorEnabled = false
         }
 
