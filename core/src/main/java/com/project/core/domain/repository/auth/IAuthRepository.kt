@@ -16,4 +16,10 @@ interface IAuthRepository {
         email: String,
         password: String
     ): Flow<Resource<User>>
+
+    fun saveToken(token: String): Flow<Boolean>
+
+    fun getToken(): Flow<String>
+
+    fun deleteToken(): Flow<Boolean>
 }

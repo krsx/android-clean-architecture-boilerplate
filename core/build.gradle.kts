@@ -1,10 +1,7 @@
-import com.android.build.api.variant.BuildConfigField
-
 plugins {
     alias(libs.plugins.library.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-//    id("com.android.library")
-//    id("kotlin-android")
+
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
@@ -18,8 +15,6 @@ android {
     defaultConfig {
         minSdk = 24
         targetSdk = 34
-//        versionCode = 1
-//        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", "\"https://story-api.dicoding.dev/v1/\"")
@@ -53,6 +48,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -79,6 +77,18 @@ dependencies {
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.work)
     kapt(libs.androidx.hilt.compiler)
+
+    //datastore
+    implementation(libs.androidx.datastore.preferences)
+
+    //room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
+
+    //coroutine
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 }
 
 // Allow references to generated code

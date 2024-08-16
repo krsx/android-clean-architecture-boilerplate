@@ -14,4 +14,16 @@ class AuthInteractor @Inject constructor(private val authRepository: AuthReposit
     override fun loginUser(email: String, password: String): Flow<Resource<User>> {
         return authRepository.loginUser(email, password)
     }
+
+    override fun saveToken(token: String): Flow<Boolean> {
+        return authRepository.saveToken(token)
+    }
+
+    override fun getToken(): Flow<String> {
+        return authRepository.getToken()
+    }
+
+    override fun deleteToken(): Flow<Boolean> {
+        return authRepository.deleteToken()
+    }
 }

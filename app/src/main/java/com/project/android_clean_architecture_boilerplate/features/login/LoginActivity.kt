@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.project.android_clean_architecture_boilerplate.R
 import com.project.android_clean_architecture_boilerplate.databinding.ActivityLoginBinding
+import com.project.android_clean_architecture_boilerplate.features.dashboard.DashboardActivity
 import com.project.android_clean_architecture_boilerplate.features.register.RegisterActivity
 import com.project.core.data.source.Resource
 import com.project.core.utils.showToast
@@ -32,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupActionBar()
+        supportActionBar?.hide()
 
         isButtonRegisterEnabled(false)
 
@@ -74,6 +75,10 @@ class LoginActivity : AppCompatActivity() {
                         Timber.tag(activityNameTag).d("Success")
 
                         showToast("Welcome To My Application")
+
+                        val intentToDashboard = Intent(this@LoginActivity, DashboardActivity::class.java)
+                        startActivity(intentToDashboard)
+                        finish()
                     }
                 }
             }
@@ -136,10 +141,6 @@ class LoginActivity : AppCompatActivity() {
         }
 
         isButtonRegisterEnabled(password.isNotEmpty() && isPasswordFormatCorrect)
-    }
-
-    private fun setupActionBar() {
-        supportActionBar?.hide()
     }
 
     private fun showLoading(isLoading: Boolean) {

@@ -9,4 +9,6 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(private val authUseCase: AuthUseCase): ViewModel() {
     fun registerUser(email: String, password: String, name: String) = authUseCase.registerUser(email, password, name).asLiveData()
+
+    fun saveToken(token: String) = authUseCase.saveToken(token).asLiveData()
 }

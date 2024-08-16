@@ -2,8 +2,10 @@ package com.project.core.data.source.remote.network
 
 import com.project.core.data.source.remote.response.auth.LoginResponse
 import com.project.core.data.source.remote.response.auth.RegisterResponse
+import com.project.core.data.source.remote.response.story.StoryResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -27,7 +29,8 @@ interface ApiService {
     // AUTH-END
 
     // STORY
-
+    @GET("stories")
+    suspend fun getStories(): StoryResponse
 
     // STORY-END
 }
